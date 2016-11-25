@@ -7,6 +7,26 @@ var GLOBAL = {
 	EDGE_BOTTOM:400,
 }
 
+var Physics = {
+
+	simulate:function(){
+		ball1.simulate();
+		ball2.simulate();
+	}
+
+};
+
+
+var Art = {
+
+	render:function(){
+		clear();
+		ball1.render();
+		ball2.render();
+	}
+
+};
+
 
 
 function Ball(initialX, initialY, radius, color) {
@@ -55,14 +75,8 @@ function setup() {
 	
 }
 
-function draw(){
-
-	clear();
-	
-	ball1.simulate();
-	ball2.simulate();
-	
-	ball1.render();
-	ball2.render();
+function draw(){	
+	Physics.simulate();
+	Art.render();
 }
 
