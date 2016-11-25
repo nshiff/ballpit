@@ -7,6 +7,7 @@ var GLOBAL = {
 	EDGE_BOTTOM:400,
 	BALLS:[],
 	DEBUG:false,
+	BALL_RADIUS:10,
 }
 
 var Art = {
@@ -20,9 +21,7 @@ var Art = {
 	}
 };
 
-
 var Physics = {
-
 
 	_advanceBallPosition: function(ball){
 		ball.x += ball.velocityX * ball.radius;
@@ -48,10 +47,24 @@ var Physics = {
 	},
 
 	_collideBallWithBall: function(ballA, ballB){
-		if(ballA.x == ballB.x && ballA.y == ballB.y){
-			return true;
-		}
-		return false;
+
+
+
+        var maxX = ballA.x + ballA.radius;
+        var minX = ballA.x - ballA.radius;
+        var collideX = (ballB.x > minX) && (ballB.x < maxX);
+
+
+        var maxY = ballA.y + ballA.radius;
+        var minY = ballA.y - ballA.radius;
+        var collideY = (ballB.y > minY) && (ballB.y < maxY);
+
+        if(collideX && collideY){
+            return true;
+        }
+
+
+        return false;
 	},
 	
 	
@@ -78,7 +91,7 @@ var Physics = {
 function Ball(initialPositionX, initialPositionY, velocityX, velocityY, color) {
   this.x = initialPositionX;
   this.y = initialPositionY;
-  this.radius = 10;
+  this.radius = GLOBAL.BALL_RADIUS;
   this.color = color;
   this.velocityX = velocityX;
   this.velocityY = velocityY;
