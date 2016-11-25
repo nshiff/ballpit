@@ -8,7 +8,6 @@ var GLOBAL = {
 	BALLS:[],
 }
 
-
 var Art = {
 	render:function(){
 		clear();
@@ -22,9 +21,25 @@ var Art = {
 
 
 var Physics = {
+
 	simulate:function(){
 		for(var i=0; i<GLOBAL.BALLS.length; i++){
-			GLOBAL.BALLS[i].simulate();
+			var nextBall = GLOBAL.BALLS[i];
+		  	if(nextBall.x > GLOBAL.EDGE_RIGHT){
+				nextBall.velocityX *= -1;
+			}
+			if(nextBall.x < GLOBAL.EDGE_LEFT){
+				nextBall.velocityX *= -1;
+			}
+			if(nextBall.y > GLOBAL.EDGE_BOTTOM){
+				nextBall.velocityY *= -1;
+			}
+			if(nextBall.y < GLOBAL.EDGE_TOP){
+				nextBall.velocityY *= -1;
+			}
+	
+			nextBall.x += nextBall.velocityX;
+			nextBall.y += nextBall.velocityY;
 		}
 	}
 };
@@ -40,26 +55,6 @@ function Ball(initialPositionX, initialPositionY, velocityX, velocityY, color) {
   this.color = color;
   this.velocityX = velocityX;
   this.velocityY = velocityY;
-  
-  this.simulate = function(){
-  
-  	if(this.x > GLOBAL.EDGE_RIGHT){
-		this.velocityX *= -1;
-	}
-	if(this.x < GLOBAL.EDGE_LEFT){
-		this.velocityX *= -1;
-	}
-	if(this.y > GLOBAL.EDGE_BOTTOM){
-		this.velocityY *= -1;
-	}
-	if(this.y < GLOBAL.EDGE_TOP){
-		this.velocityY *= -1;
-	}
-	
-	this.x += this.velocityX;
-	this.y += this.velocityY;
-  }
-  
 }
 
 
