@@ -1,41 +1,63 @@
 
 
-
-var EDGE_TOP = 0;
-var EDGE_LEFT = 0;
-var EDGE_RIGHT = 310;
-var EDGE_BOTTOM = 200;
-
-function setup() {
-	createCanvas(EDGE_RIGHT, EDGE_BOTTOM);
+var GLOBAL = {
+	EDGE_TOP:0,
+	EDGE_LEFT:0,
+	EDGE_RIGHT:640,
+	EDGE_BOTTOM:400,
 }
 
 
-var x = 50;
-var y = 50;
-var velocityx = 5;
-var velocityy = 5;
-var radius = 20;
+
+function Ball(initialX, initialY, radius) {
+  this.x = initialX;
+  this.y = initialY;
+  this.radius = radius;
+  this.velocityX = 10;
+  this.velocityY = 10;
+  
+  this.simulate = function(){
+  
+  	if(this.x > GLOBAL.EDGE_RIGHT){
+		this.velocityX *= -1;
+	}
+	if(this.x < GLOBAL.EDGE_LEFT){
+		this.velocityX *= -1;
+	}
+	if(this.y > GLOBAL.EDGE_BOTTOM){
+		this.velocityY *= -1;
+	}
+	if(this.y < GLOBAL.EDGE_TOP){
+		this.velocityY *= -1;
+	}
+	
+	this.x += this.velocityX;
+	this.y += this.velocityY;
+  }
+  
+  this.render = function(){
+	  ellipse(this.x, this.y, 2*this.radius, 2*this.radius);
+  }
+  
+}
+
+
+var ball = new Ball(0,10,20);
+
+
+function setup() {
+	createCanvas(GLOBAL.EDGE_RIGHT, GLOBAL.EDGE_BOTTOM);
+	
+
+	
+}
 
 function draw(){
 
 	
 	
-	if(x > EDGE_RIGHT){
-		velocityx *= -1;
-	}
-	if(x < EDGE_LEFT){
-		velocityx *= -1;
-	}
-	if(y > EDGE_BOTTOM){
-		velocityy *= -1;
-	}
-	if(y < EDGE_TOP){
-		velocityy *= -1;
-	}
+	ball.simulate();
+	ball.render();
 	
-	x += velocityx
-	y += velocityy
-	ellipse(x, y, 2*radius, 2*radius);
 }
 
