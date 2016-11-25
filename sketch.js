@@ -22,26 +22,32 @@ var Art = {
 
 var Physics = {
 
+	_collideBallWithWalls: function(ball){
+		if(ball.x > GLOBAL.EDGE_RIGHT){
+			ball.velocityX *= -1;
+		}
+		if(ball.x < GLOBAL.EDGE_LEFT){
+			ball.velocityX *= -1;
+		}
+		if(ball.y > GLOBAL.EDGE_BOTTOM){
+			ball.velocityY *= -1;
+		}
+		if(ball.y < GLOBAL.EDGE_TOP){
+			ball.velocityY *= -1;
+		}
+
+		
+	},
+
 	simulate:function(){
 		for(var i=0; i<GLOBAL.BALLS.length; i++){
-			var nextBall = GLOBAL.BALLS[i];
-		  	if(nextBall.x > GLOBAL.EDGE_RIGHT){
-				nextBall.velocityX *= -1;
-			}
-			if(nextBall.x < GLOBAL.EDGE_LEFT){
-				nextBall.velocityX *= -1;
-			}
-			if(nextBall.y > GLOBAL.EDGE_BOTTOM){
-				nextBall.velocityY *= -1;
-			}
-			if(nextBall.y < GLOBAL.EDGE_TOP){
-				nextBall.velocityY *= -1;
-			}
-	
-			nextBall.x += nextBall.velocityX;
-			nextBall.y += nextBall.velocityY;
+			var currentBall = GLOBAL.BALLS[i];
+			Physics._collideBallWithWalls(currentBall);
+		  	currentBall.x += currentBall.velocityX;
+			currentBall.y += currentBall.velocityY;
 		}
 	}
+	
 };
 
 
@@ -65,7 +71,7 @@ function setup() {
 	var ball1 = new Ball(0, 0, 1, 1, color(120, 0, 0) );
 	var ball2 = new Ball(0, 100, 1, 1, color(0, 220, 0) );
 	var ball3 = new Ball(100, 0, 2, 1, color(0, 0, 120) );
-	var ball4 = new Ball(200, 200, -1, -1, color(200, 200, 200) );
+	var ball4 = new Ball(200, 200, -0.5, -0.5, color(200, 200, 200) );
 
 	GLOBAL.BALLS.push(ball1);
 	GLOBAL.BALLS.push(ball2);
