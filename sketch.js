@@ -48,8 +48,6 @@ var Physics = {
 
 	_collideBallWithBall: function(ballA, ballB){
 
-
-
         var maxX = ballA.x + ballA.radius;
         var minX = ballA.x - ballA.radius;
         var collideX = (ballB.x > minX) && (ballB.x < maxX);

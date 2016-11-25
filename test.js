@@ -1,21 +1,25 @@
 
-var countFailedAsserts = 0;
-var countPassedAsserts = 0;
+
 
 var assertTrue = function(statement, errorMessage){
 	var message = errorMessage || 'fail';
 	if(!statement){
 		console.log('error: ' + message);
-		countFailedAsserts += 1;
+		GLOBAL.countFailedAsserts += 1;
 	}
 	else{
-		countPassedAsserts += 1;
+		GLOBAL.countPassedAsserts += 1;
 	}
 }
 var assertFalse = function(statement, errorMessage){
 	assertTrue(!statement,errorMessage);
 }
 
+var setupTests = function(){
+    GLOBAL.countFailedAsserts = 0;
+    GLOBAL.countPassedAsserts = 0;
+    GLOBAL.BALL_RADIUS = 10;
+}
 
 var tests = {
 
@@ -41,7 +45,6 @@ var tests = {
 		assertTrue(Physics._collideBallWithBall(ballA,ballE), 'matching x and y should collide' );	
 	},
 	testCollisionHappensEvenIfNotPerfectlyCollided:function(){
-		GLOBAL.BALL_RADIUS = 10;
 		var ballA = new Ball(0, 0, 0.1, 0.1, '' );
 		var ballB = new Ball(0, 0.1, 0.1, 0.1, '' );
 		var ballC = new Ball(0, 11, 0.1, 0.1, '' );
@@ -54,9 +57,27 @@ var tests = {
 		assertTrue(Physics._collideBallWithBall(ballA,ballD), 'should collide: both close enough' );
 		assertFalse(Physics._collideBallWithBall(ballA,ballE), 'should not collide: x too far' );
 		assertFalse(Physics._collideBallWithBall(ballA,ballF), 'should not collide: both too far' );
+	},
+	testCollisionUpdatesVelocity:function(){
+        var ballHeadingRight = new Ball(100, 100, 1, 0, '' );
+        var ballHeadingLeft = new Ball(100, 100, -2, 0, '' );
+
+        assertTrue(ballHeadingRight.velocityX == 1);
+        assertTrue(ballHeadingRight.velocityY == 0);
+        assertTrue(ballHeadingRight.velocityX == -2);
+        assertTrue(ballHeadingRight.velocityY == 0);
+
+        assertTrue(Physics._collideBallWithBall(ballHeadingRight,ballHeadingLeft), 'collide the balls' );
+
+        assertTrue(ballHeadingRight.velocityX == -1);
+        assertTrue(ballHeadingRight.velocityY == 0);
+        assertTrue(ballHeadingRight.velocityX == -1);
+        assertTrue(ballHeadingRight.velocityY == 0);
 
 
-	}
+
+    }
+
 	
 	
 	
@@ -70,7 +91,7 @@ var tests = {
 
 
 
-
+setupTests();
 for (test in tests){
 	tests[test].call();
 }
