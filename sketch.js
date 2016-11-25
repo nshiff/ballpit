@@ -48,7 +48,10 @@ var Physics = {
 	},
 
 	_collideBallWithBall: function(ballA, ballB){
-		return true;
+		if(ballA.x == ballB.x && ballA.y == ballB.y){
+			return true;
+		}
+		return false;
 	},
 	
 	
@@ -89,12 +92,12 @@ function setup() {
 	var ball1 = new Ball(0, 0, 0.1, 0.1, color(120, 0, 0) );
 	var ball2 = new Ball(0, 100, 0.08, 0.08, color(0, 220, 0) );
 	var ball3 = new Ball(100, 0, 0.2, 0.09, color(0, 0, 120) );
-	// var ball4 = new Ball(200, 200, -0.05, -0.05, color(200, 200, 200) );
+	var ball4 = new Ball(200, 200, -0.05, -0.05, color(200, 200, 200) );
 
 	GLOBAL.BALLS.push(ball1);
 	GLOBAL.BALLS.push(ball2);
 	GLOBAL.BALLS.push(ball3);
-	// GLOBAL.BALLS.push(ball4);
+	GLOBAL.BALLS.push(ball4);
 
 }
 

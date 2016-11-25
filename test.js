@@ -1,17 +1,22 @@
-Physics._collideBallWithBall('a','b');
 
-
-
-var countFailedTests = 0;
+var countFailedAsserts = 0;
+var countPassedAsserts = 0;
 
 var assertTrue = function(statement, errorMessage){
 	var message = errorMessage || 'fail';
 	if(!statement){
 		console.log('error: ' + message);
-		countFailedTests += 1;
+		countFailedAsserts += 1;
 	}
-
+	else{
+		countPassedAsserts += 1;
+	}
 }
+var assertFalse = function(statement, errorMessage){
+	assertTrue(!statement,errorMessage);
+}
+
+
 var tests = {
 
 	testIdenticalBallsWillCollide:function(){
@@ -21,9 +26,20 @@ var tests = {
 	testDifferentBallsDontCollide: function(){
 		var ballA = new Ball(100, 100, 0.1, 0.1, '' );
 		var ballB = new Ball(0, 0, 0.1, 0.1, '' );
-		assertTrue( false == Physics._collideBallWithBall(ballA,ballB), 'Balls with different position should not collide' );
-
+		assertFalse(Physics._collideBallWithBall(ballA,ballB), 'Balls with different position should not collide' );
 	},
+	testCollisionMatchesBothXAndYCoordinates:function(){
+		var ballA = new Ball(0, 0, 0.1, 0.1, '' );
+		var ballB = new Ball(0, 20, 0.1, 0.1, '' );
+		var ballC = new Ball(20, 0, 0.1, 0.1, '' );
+		var ballD = new Ball(20, 20, 0.1, 0.1, '' );
+		var ballE = new Ball(0, 0, 0.1, 0.1, '' );
+		
+		assertFalse(Physics._collideBallWithBall(ballA,ballB), 'different Y shouldn\'t collide' );
+		assertFalse(Physics._collideBallWithBall(ballA,ballC), 'different x shouldn\'t collide' );
+		assertFalse(Physics._collideBallWithBall(ballA,ballD), 'different x and Y shouldn\'t collide' );
+		assertTrue(Physics._collideBallWithBall(ballA,ballE), 'matching x and y should collide' );	
+	}
 
 };
 
@@ -38,6 +54,5 @@ for (test in tests){
 }
 
 
-if(countFailedTests == 0){
-	console.log('passed all tests');
-}
+console.log('countPassedAsserts: ' + countPassedAsserts);
+console.log('countFailedAsserts: ' + countFailedAsserts);
