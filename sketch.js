@@ -32,13 +32,13 @@ var Art = {
 
 
 
-function Ball(initialX, initialY, color) {
-  this.x = initialX;
-  this.y = initialY;
+function Ball(initialPositionX, initialPositionY, velocityX, velocityY, color) {
+  this.x = initialPositionX;
+  this.y = initialPositionY;
   this.radius = 10;
   this.color = color;
-  this.velocityX = 2;
-  this.velocityY = 2;
+  this.velocityX = velocityX;
+  this.velocityY = velocityY;
   
   this.simulate = function(){
   
@@ -71,10 +71,10 @@ function setup() {
 
 	createCanvas(GLOBAL.EDGE_RIGHT, GLOBAL.EDGE_BOTTOM);
 
-	var ball1 = new Ball(0, 0, color(120, 0, 0) );
-	var ball2 = new Ball(0, 100, color(0, 220, 0) );
-	var ball3 = new Ball(100, 0, color(0, 0, 120) );
-	var ball4 = new Ball(200, 200, color(200, 200, 200) );
+	var ball1 = new Ball(0, 0, 1, 1, color(120, 0, 0) );
+	var ball2 = new Ball(0, 100, 1, 1, color(0, 220, 0) );
+	var ball3 = new Ball(100, 0, 2, 1, color(0, 0, 120) );
+	var ball4 = new Ball(200, 200, -1, -1, color(200, 200, 200) );
 
 	GLOBAL.BALLS.push(ball1);
 	GLOBAL.BALLS.push(ball2);
