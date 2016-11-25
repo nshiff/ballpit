@@ -6,6 +6,7 @@ var GLOBAL = {
 	EDGE_RIGHT:640,
 	EDGE_BOTTOM:400,
 	BALLS:[],
+	DEBUG:true,
 }
 
 var Art = {
@@ -46,14 +47,31 @@ var Physics = {
 		
 	},
 
+	_collideBallWithBall: function(ballA, ballB){
+		var maxX = ballA.x + ballA.radius;
+		var minX = ballA.x - ballA.radius;
+		var possibleCollisionX = (maxX > ballB.x) && (minX < ballB.x);
+		if(possibleCollisionX && GLOBAL.DEBUG){
+			console.log('possibleCollisionX');
+		}
+
+		
+	},
+	
+	
+	
 	simulate:function(){
 		for(var i=0; i<GLOBAL.BALLS.length; i++){
 			var currentBall = GLOBAL.BALLS[i];
 			Physics._collideBallWithWalls(currentBall);
+			for(var j=i+1; j<GLOBAL.BALLS.length; j++){
+				Physics._collideBallWithBall(currentBall, GLOBAL.BALLS[j]);
+			}
 			Physics._advanceBallPosition(currentBall);
-
 		}
+		
 	}
+	
 	
 };
 
