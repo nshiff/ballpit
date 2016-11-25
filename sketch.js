@@ -6,7 +6,7 @@ var GLOBAL = {
 	EDGE_RIGHT:640,
 	EDGE_BOTTOM:400,
 	BALLS:[],
-	DEBUG:true,
+	DEBUG:false,
 }
 
 var Art = {
@@ -48,14 +48,7 @@ var Physics = {
 	},
 
 	_collideBallWithBall: function(ballA, ballB){
-		var maxX = ballA.x + ballA.radius;
-		var minX = ballA.x - ballA.radius;
-		var possibleCollisionX = (maxX > ballB.x) && (minX < ballB.x);
-		if(possibleCollisionX && GLOBAL.DEBUG){
-			console.log('possibleCollisionX');
-		}
-
-		
+		return true;
 	},
 	
 	
