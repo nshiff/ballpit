@@ -22,6 +22,13 @@ var Art = {
 
 var Physics = {
 
+
+	_advanceBallPosition: function(ball){
+		ball.x += ball.velocityX * ball.radius;
+		ball.y += ball.velocityY * ball.radius;
+	},
+
+
 	_collideBallWithWalls: function(ball){
 		if(ball.x > GLOBAL.EDGE_RIGHT){
 			ball.velocityX *= -1;
@@ -43,8 +50,8 @@ var Physics = {
 		for(var i=0; i<GLOBAL.BALLS.length; i++){
 			var currentBall = GLOBAL.BALLS[i];
 			Physics._collideBallWithWalls(currentBall);
-		  	currentBall.x += currentBall.velocityX;
-			currentBall.y += currentBall.velocityY;
+			Physics._advanceBallPosition(currentBall);
+
 		}
 	}
 	
@@ -68,15 +75,15 @@ function setup() {
 
 	createCanvas(GLOBAL.EDGE_RIGHT, GLOBAL.EDGE_BOTTOM);
 
-	var ball1 = new Ball(0, 0, 1, 1, color(120, 0, 0) );
-	var ball2 = new Ball(0, 100, 1, 1, color(0, 220, 0) );
-	var ball3 = new Ball(100, 0, 2, 1, color(0, 0, 120) );
-	var ball4 = new Ball(200, 200, -0.5, -0.5, color(200, 200, 200) );
+	var ball1 = new Ball(0, 0, 0.1, 0.1, color(120, 0, 0) );
+	var ball2 = new Ball(0, 100, 0.08, 0.08, color(0, 220, 0) );
+	var ball3 = new Ball(100, 0, 0.2, 0.09, color(0, 0, 120) );
+	// var ball4 = new Ball(200, 200, -0.05, -0.05, color(200, 200, 200) );
 
 	GLOBAL.BALLS.push(ball1);
 	GLOBAL.BALLS.push(ball2);
 	GLOBAL.BALLS.push(ball3);
-	GLOBAL.BALLS.push(ball4);
+	// GLOBAL.BALLS.push(ball4);
 
 }
 
