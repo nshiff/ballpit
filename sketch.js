@@ -5,13 +5,15 @@ var GLOBAL = {
 	EDGE_LEFT:0,
 	EDGE_RIGHT:640,
 	EDGE_BOTTOM:400,
+	BALLS:[],
 }
 
 var Physics = {
 
 	simulate:function(){
-		ball1.simulate();
-		ball2.simulate();
+		for(var i=0; i<GLOBAL.BALLS.length; i++){
+			GLOBAL.BALLS[i].simulate();
+		}
 	}
 
 };
@@ -21,18 +23,19 @@ var Art = {
 
 	render:function(){
 		clear();
-		ball1.render();
-		ball2.render();
+		for(var i=0; i<GLOBAL.BALLS.length; i++){
+			GLOBAL.BALLS[i].render();
+		}
 	}
 
 };
 
 
 
-function Ball(initialX, initialY, radius, color) {
+function Ball(initialX, initialY, color) {
   this.x = initialX;
   this.y = initialY;
-  this.radius = radius;
+  this.radius = 10;
   this.color = color;
   this.velocityX = 2;
   this.velocityY = 2;
@@ -64,15 +67,20 @@ function Ball(initialX, initialY, radius, color) {
 }
 
 
-var ball1 = {};
-var ball2 = {};
-
 function setup() {
-	createCanvas(GLOBAL.EDGE_RIGHT, GLOBAL.EDGE_BOTTOM);
-	ball1 = new Ball(0, 20, 20, color(120, 0, 0) );
-	ball2 = new Ball(GLOBAL.EDGE_RIGHT / 2, 20, 10, color(0, 220, 0) );
 
-	
+	createCanvas(GLOBAL.EDGE_RIGHT, GLOBAL.EDGE_BOTTOM);
+
+	var ball1 = new Ball(0, 0, color(120, 0, 0) );
+	var ball2 = new Ball(0, 100, color(0, 220, 0) );
+	var ball3 = new Ball(100, 0, color(0, 0, 120) );
+	var ball4 = new Ball(200, 200, color(200, 200, 200) );
+
+	GLOBAL.BALLS.push(ball1);
+	GLOBAL.BALLS.push(ball2);
+	GLOBAL.BALLS.push(ball3);
+	GLOBAL.BALLS.push(ball4);
+
 }
 
 function draw(){	
