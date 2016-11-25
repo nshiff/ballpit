@@ -9,12 +9,13 @@ var GLOBAL = {
 
 
 
-function Ball(initialX, initialY, radius) {
+function Ball(initialX, initialY, radius, color) {
   this.x = initialX;
   this.y = initialY;
   this.radius = radius;
-  this.velocityX = 10;
-  this.velocityY = 10;
+  this.color = color;
+  this.velocityX = 2;
+  this.velocityY = 2;
   
   this.simulate = function(){
   
@@ -36,28 +37,32 @@ function Ball(initialX, initialY, radius) {
   }
   
   this.render = function(){
-	  ellipse(this.x, this.y, 2*this.radius, 2*this.radius);
+  	fill(this.color);
+  	ellipse(this.x, this.y, 2*this.radius, 2*this.radius);
   }
   
 }
 
 
-var ball = new Ball(0,10,20);
-
+var ball1 = {};
+var ball2 = {};
 
 function setup() {
 	createCanvas(GLOBAL.EDGE_RIGHT, GLOBAL.EDGE_BOTTOM);
-	
+	ball1 = new Ball(0, 20, 20, color(120, 0, 0) );
+	ball2 = new Ball(GLOBAL.EDGE_RIGHT / 2, 20, 10, color(0, 220, 0) );
 
 	
 }
 
 function draw(){
 
+	clear();
 	
+	ball1.simulate();
+	ball2.simulate();
 	
-	ball.simulate();
-	ball.render();
-	
+	ball1.render();
+	ball2.render();
 }
 
