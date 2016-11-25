@@ -8,27 +8,28 @@ var GLOBAL = {
 	BALLS:[],
 }
 
-var Physics = {
 
+var Art = {
+	render:function(){
+		clear();
+		for(var i=0; i<GLOBAL.BALLS.length; i++){
+			var nextBall = GLOBAL.BALLS[i];
+			fill(nextBall.color);
+			ellipse(nextBall.x, nextBall.y, 2*nextBall.radius, 2*nextBall.radius);
+		}
+	}
+};
+
+
+var Physics = {
 	simulate:function(){
 		for(var i=0; i<GLOBAL.BALLS.length; i++){
 			GLOBAL.BALLS[i].simulate();
 		}
 	}
-
 };
 
 
-var Art = {
-
-	render:function(){
-		clear();
-		for(var i=0; i<GLOBAL.BALLS.length; i++){
-			GLOBAL.BALLS[i].render();
-		}
-	}
-
-};
 
 
 
@@ -57,11 +58,6 @@ function Ball(initialPositionX, initialPositionY, velocityX, velocityY, color) {
 	
 	this.x += this.velocityX;
 	this.y += this.velocityY;
-  }
-  
-  this.render = function(){
-  	fill(this.color);
-  	ellipse(this.x, this.y, 2*this.radius, 2*this.radius);
   }
   
 }
