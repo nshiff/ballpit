@@ -3,14 +3,9 @@
 // https://processing.org/examples/circlecollision.html
 
 
-var GLOBAL
-
-
-
-
 function Ball (x, y, r_) {
-    this.position = new PVector(x, y);
-    this.velocity = PVector.random2D();
+    this.position = new p5.Vector(x, y);
+    this.velocity = new p5.Vector(Math.random(), Math.random(), Math.random());
     this.velocity.mult(3);
     this.r = r_;
     this.m = this.r * .1;
@@ -40,7 +35,7 @@ function Ball (x, y, r_) {
 
     this.checkCollision = function(other) {
         // get distances between the balls components
-        var bVect = PVector.sub(other.position, position);
+        var bVect = p5.Vector.sub(other.position, position);
 
         // calculate magnitude of the vector separating the balls
         var bVectMag = bVect.mag();
@@ -55,7 +50,7 @@ function Ball (x, y, r_) {
 			/* bTemp will hold rotated ball positions. You
 			 just need to worry about bTemp[1] position*/
             var bTemp = [
-                new PVector(), new PVector()
+                new p5.Vector(), new p5.Vector()
             ];
 
 			/* this ball's position is relative to the other
@@ -69,7 +64,7 @@ function Ball (x, y, r_) {
 
             // rotate Temporary velocities
             var vTemp = [
-                new PVector(), new PVector()
+                new p5.Vector(), new p5.Vector()
             ];
 
             vTemp[0].x = cosine * this.velocity.x + sine * this.velocity.y;
@@ -81,7 +76,7 @@ function Ball (x, y, r_) {
 			 conservation of momentum equations to calculate
 			 the final velocity along the x-axis. */
 			var vFinal = [
-                new PVector(), new PVector()
+                new p5.Vector(), new p5.Vector()
             ];
 
             // final rotated velocity for b[0]
@@ -101,7 +96,7 @@ function Ball (x, y, r_) {
 			 in the opposite direction */
             // rotate balls
             var bFinal = [
-                new PVector(), new PVector()
+                new p5.Vector(), new p5.Vector()
             ];
 
             bFinal[0].x = cosine * bTemp[0].x - sine * bTemp[0].y;
@@ -127,14 +122,15 @@ function Ball (x, y, r_) {
 		fill(204);
 		ellipse(this.position.x, this.position.y, this.r*2, this.r*2);
 	}
+
 }
 
-var balls =  [
-    Ball(100, 400, 20),
-	Ball(700, 400, 80)
-];
+var balls = [];
 
 function setup() {
+    balls.push(Ball(100, 400, 20));
+    balls.push(Ball(700, 400, 80));
+
     createCanvas(640, 360);
 }
 
